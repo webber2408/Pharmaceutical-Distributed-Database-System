@@ -1,0 +1,27 @@
+{
+  "name": "minor2",
+  "version": "1.0.0",
+  "description": "Minor Project _ Pharmaceutical Distributed Database Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "mongose": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "rollbar": "^2.2.8",
+    "socket.io": "^1.4.6",
+    "cheerio": "^0.19.0",
+    "url-parse": "^1.0.5",
+    "request": "^2.65.0"
+  },
+  "author": "rahul,avantika",
+  "license": "ISC"
+}
