@@ -21,7 +21,7 @@ export class ConsultantsComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getConsultation().subscribe(profile => {
-      console.log(profile);
+      //console.log(profile);
       //console.log(profile.results);
       this.con = profile.results;
       //console.log(this.exp)
@@ -35,7 +35,7 @@ export class ConsultantsComponent implements OnInit {
  
   getConsultation(){
     this.authService.getConsultation().subscribe(profile => {
-      console.log(profile);
+      //console.log(profile);
       //console.log(profile.results);
       this.con = profile.results;
       //console.log(this.exp)
@@ -51,10 +51,10 @@ export class ConsultantsComponent implements OnInit {
     const con = {
       consultation:this.consultation
     }
-   console.log("hello");
+   //console.log("hello");
     //Required fields 
     if(!this.validateService.validateConsultation(con)){
-      console.log("hello");
+      //console.log("hello");
       this.flashMessage.show("Please fill in all fields !",{
         cssClass: 'alert-danger',
         timeout:3000

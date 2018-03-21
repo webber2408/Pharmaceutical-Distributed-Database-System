@@ -17,9 +17,9 @@ import {AuthService} from './services/auth.service';
 import {ChatService} from './services/chat.service';
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { ConsultantsComponent } from './components/consultants/consultants.component';
-import { JobexComponent } from './components/jobex/jobex.component';
 import { RealtimeareaComponent } from './components/realtimearea/realtimearea.component';
 import { RealtimeComponent } from './components/realtime/realtime.component';
+import { SearchComponent } from './components/search/search.component';
 
 const appRoutes: Routes = [
   {path:'',component:HomeComponent},
@@ -28,8 +28,8 @@ const appRoutes: Routes = [
   {path:'dashboard',component:DashboardComponent , canActivate:[AuthGuard]},
   {path:'profile',component:ProfileComponent , canActivate:[AuthGuard]},
   {path:'consultants',component:ConsultantsComponent , canActivate:[AuthGuard]},
-  {path:'jobex',component:JobexComponent , canActivate:[AuthGuard]},
-  {path:'realtimearea',component:RealtimeareaComponent , canActivate:[AuthGuard]}
+  {path:'realtimearea',component:RealtimeareaComponent , canActivate:[AuthGuard]},
+  {path:'search',component:SearchComponent , canActivate:[AuthGuard]}
    
 ]
 
@@ -43,9 +43,9 @@ const appRoutes: Routes = [
     DashboardComponent,
     ProfileComponent,
     ConsultantsComponent,
-    JobexComponent,
     RealtimeareaComponent,
-    RealtimeComponent
+    RealtimeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,FormsModule,HttpModule,RouterModule.forRoot(appRoutes),FlashMessagesModule

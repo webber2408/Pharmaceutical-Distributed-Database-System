@@ -4,14 +4,11 @@
     align-items: center;
     justify-content: space-around;
 }
-#companyName{
-    width:100%;
-    height:40px;
-}
+
 .input-group{
     width:100%;
 }
-#experience{
+#consultation{
     width:100%;
     height:300px;
 }
@@ -29,8 +26,8 @@
     font-size:15px;
 }
 .expr{
-    margin-top: 28px;
-    height:66vh;
+    margin-top:28px;
+    height:54vh;
     /* background-color: white; */
     overflow-y: scroll;
 }
