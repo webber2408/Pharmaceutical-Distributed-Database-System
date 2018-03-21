@@ -1,0 +1,36 @@
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+       <title>MongoChat</title>
+
+  </head>
+  <body>
+      <div class="container">
+          <div class="row above">
+              <div class="col-md-12 offset-md-3 col-sm-12 main">
+                  <!-- <div id="status">{{status}}</div> -->
+                  <div id="chat">
+                    <p class="username">Hello {{username}} !</p>
+                    <p class="username">Resolve errors by asking professionals </p>
+                      <!-- <input type="text" id="username" [(ngModel)]="username" class="form-control" placeholder="Enter name..."> -->
+                      <br>
+                      <textarea id="textarea" class="form-control enterMessage" [(ngModel)]="message" placeholder="Enter message..."></textarea>
+                      <button class="btn btn-success" id="submitMessage" (click)="sendMessage()">Send Message</button>
+                      <!-- <button class="btn btn-success" id="reloadChats" (click)="onReloadChats()">Reload Chats</button> -->
+                  </div>
+                  <div class="card">
+                    <div id="messages" *ngFor="let message of messages" class="">
+                      {{message}}
+                    </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    
+  </body>
+  </html>

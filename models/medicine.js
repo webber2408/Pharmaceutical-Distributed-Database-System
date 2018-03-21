@@ -62,7 +62,7 @@ module.exports.getAllMedicineWithSalt= function(med_salt,callback){
 }
 
 module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
-	Medicine.find({"Salt0":med_salt}).sort({"Price":1}).toArray(function(err,results){
+	Medicine.find({"Salt0":med_salt},null,{sort:{"Price":1}},function(err,results){
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);

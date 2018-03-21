@@ -25,9 +25,9 @@ mongoose.connection.on('error',(err)=>{
 
 
 const app= express();
-// const users = require('./routes/users');
-// const jobex = require('./routes/jobex');
-// const internship = require('./routes/internship');
+const users = require('./routes/users');
+const jobex = require('./routes/jobex');
+const consultation = require('./routes/consultation');
 const medicines = require('./routes/medicines');
 const port = 3000;
 
@@ -40,9 +40,9 @@ app.use(express.static(path.join(__dirname , 'public')));
 //Body parser middleware 
 // parses / grabs incoming form data etc ...
 app.use(bodyParser.json());
-// app.use('/users',users);
-// app.use('/jobex',jobex);
-// app.use('/internship',internship);
+app.use('/users',users);
+app.use('/jobex',jobex);
+app.use('/consultation',consultation);
 app.use('/medicines',medicines);
 
 //Passport middleware
