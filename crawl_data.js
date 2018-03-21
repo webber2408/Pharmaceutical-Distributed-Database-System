@@ -80,7 +80,7 @@ function crawl_table($){
 
       var salt= salts.text().toString();
       var str= salt.slice(1,salt.length-1);
-      var s= str.split(/[\+\/]/);
+      var s= str.split(/[\+\/,]/);
 
       myData["Name"] = name.text();
       myData["Company"] = company.text();

@@ -27,8 +27,98 @@ router.get('/getAllMedicines' , (req,res) => {
 	});
 });
 
+router.get('/searchMedicine/:name',(req,res)=>{
 
+	Medicine.getMedicine(req.params.name,(err,results)=>{
+		console.log(results);
+		if(err){
+			res.json({
+				success:false,
+				msg: 'Failed to retrieve the medicine !'
+			});
+		}
+		else{
+			res.json({
+				success: true,
+				msg: 'Medicine retrieved !',
+				results:results
+			});
+		}
 
+	});
+
+});
+
+router.get('/searchMedicineWithSalt/:name/:salt',(req,res)=>{
+
+	var data = {
+            "name": req.params.name,
+            "salt": req.params.salt
+    };
+	Medicine.getMedicineSalt(data,(err,results)=>{
+		console.log("hello");
+		console.log(results);
+		if(err){
+			res.json({
+				success:false,
+				msg: 'Failed to retrieve the medicine !'
+			});
+		}
+		else{
+			res.json({
+				success: true,
+				msg: 'Medicine retrieved !',
+				results:results
+			});
+		}
+
+	});
+
+});
+
+router.get('/getAllMedicineWithSalt/:salt',(req,res)=>{
+
+	Medicine.getAllMedicineWithSalt(req.params.salt,(err,results)=>{
+		console.log(results);
+		if(err){
+			res.json({
+				success:false,
+				msg: 'Failed to retrieve the medicine !'
+			});
+		}
+		else{
+			res.json({
+				success: true,
+				msg: 'Medicine retrieved !',
+				results:results
+			});
+		}
+
+	});
+
+});
+
+router.get('/getAllMedicineWithSaltSorted/:salt',(req,res)=>{
+
+	Medicine.getAllMedicineWithSalt(req.params.salt,(err,results)=>{
+		console.log(results);
+		if(err){
+			res.json({
+				success:false,
+				msg: 'Failed to retrieve the medicine !'
+			});
+		}
+		else{
+			res.json({
+				success: true,
+				msg: 'Medicine retrieved !',
+				results:results
+			});
+		}
+
+	});
+
+});
 
 
 

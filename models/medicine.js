@@ -37,3 +37,35 @@ module.exports.addMedicine = function(newMedicine){
 	console.log(newMedicine);
 	newMedicine.save();
 }
+module.exports.getMedicine= function(med_name,callback){
+	Medicine.find({"Name":med_name}, function(err,results){
+        if (err) return handleError(err);
+        else console.log(results);
+        callback(err,results);
+	});
+}
+
+module.exports.getMedicineSalt= function(data,callback){
+	Medicine.find({"Name":data.name,"Salt0":data.salt}, function(err,results){
+        if (err) return handleError(err);
+        else console.log(results);
+        callback(err,results);
+	});
+}
+
+module.exports.getAllMedicineWithSalt= function(med_salt,callback){
+	Medicine.find({"Salt0":med_salt}, function(err,results){
+        if (err) return handleError(err);
+        else console.log(results);
+        callback(err,results);
+	});
+}
+
+module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
+	Medicine.find({"Salt0":med_salt}).sort({"Price":1}).toArray(function(err,results){
+        if (err) return handleError(err);
+        else console.log(results);
+        callback(err,results);
+	});
+}
+
