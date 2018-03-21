@@ -14,7 +14,7 @@ const MedicineSchema = mongoose.Schema({
 		Combinations:String,
 		Volume:String,
 		Presentation:String,
-		Price:String,
+		Price:Number,
 	}
 });
 const Medicine = module.exports = mongoose.model('Medicines',MedicineSchema);

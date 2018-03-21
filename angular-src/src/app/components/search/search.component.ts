@@ -32,13 +32,17 @@ export class SearchComponent implements OnInit {
     // console.log(this.name);
       if(this.name == undefined){
         this.name = "";
-      }else if(this.salt0 == undefined){
+      }
+      if(this.salt0 == undefined){
         this.salt0 = "";
-      }else if(this.salt1 == undefined){
+      }
+      if(this.salt1 == undefined){
         this.salt1 = "";
-      }else if(this.salt2 == undefined){
+      }
+      if(this.salt2 == undefined){
         this.salt2 = "";
-      }else if(this.salt3 == undefined){
+      }
+      if(this.salt3 == undefined){
         this.salt3 = "";
       }
     const medicine = {
@@ -54,7 +58,7 @@ export class SearchComponent implements OnInit {
    
   //Search Medicine
    this.authService.searchMedicine(medicine).subscribe(data => {
-     //console.log(data);
+     console.log(data);
      if(data.success){
       this.flashMessage.show("Search Successful !",{
         cssClass: 'alert-success',

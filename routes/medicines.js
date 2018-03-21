@@ -135,7 +135,7 @@ router.post('/getMedicine',urlencodedParser, (req, res)=>{
 	 	sort:req.body.sort,
 	 	sub:req.body.substitute
 	}
-	//console.log(data);
+	console.log(data);
 	if(data.name!="" && data.salt0=="" && data.sort=="no" && data.sub=="no"){
 		Medicine.getMedicine(data.name,(err,results)=>{
 			if(err){
