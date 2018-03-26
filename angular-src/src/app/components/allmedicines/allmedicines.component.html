@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>Medicine Catalog</h2>           
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th>Salt0</th>
+        <th>Salt1</th>
+        <th>Salt2</th>
+        <th>Salt3</th>
+        <th>Company</th>
+        <th>Combinations</th>
+        <th>Volume</th>
+        <th>Presentation</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of result">
+        <td>{{element.Name}}</td>
+        <td>{{element.Salt0}}</td>
+        <td>{{element.Salt1}}</td>
+        <td>{{element.Salt2}}</td>
+        <td>{{element.Salt3}}</td>
+        <td>{{element.Company}}</td>
+        <td>{{element.Combinations}}</td>
+        <td>{{element.Volume}}</td>
+        <td>{{element.Presentation}}</td>
+        <td>{{element.Price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

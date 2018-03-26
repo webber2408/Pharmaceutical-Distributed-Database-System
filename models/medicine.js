@@ -19,94 +19,123 @@ const MedicineSchema = mongoose.Schema({
 });
 const Medicine = module.exports = mongoose.model('Medicines',MedicineSchema);
 
-// module.exports.getAllMedicines = function(callback){
-// 	console.log("hello");
-// 	// console.log(Jobexp.collection.find());
-// 	// console.log(Jobexp.find({}));
-// 	// Jobexp.find({});
-// 	// console.log("hello");
-// 	Medicine.find(function (err, results) {
-// 		console.log(results);
-//         assert.equal(null, err);
-        
-//         //invoke callback with your mongoose returned result
-//         callback(err,results);
-//       });
-// }
-// module.exports.addMedicine = function(newMedicine){
-// 	console.log(newMedicine);
-// 	newMedicine.save();
-// }
-// module.exports.getMedicine= function(med_name,callback){
-// 	Medicine.find({"Name":med_name}, function(err,results){
-//         if (err) return handleError(err);
-//         else console.log(results);
-//         callback(err,results);
-// 	});
-// }
-
-// module.exports.getMedicineSalt= function(data,callback){
-// 	Medicine.find({"Name":data.name,"Salt0":data.salt}, function(err,results){
-//         if (err) return handleError(err);
-//         else console.log(results);
-//         callback(err,results);
-// 	});
-// }
-
-// module.exports.getAllMedicineWithSalt= function(med_salt,callback){
-// 	Medicine.find({"Salt0":med_salt}, function(err,results){
-//         if (err) return handleError(err);
-//         else console.log(results);
-//         callback(err,results);
-// 	});
-// }
-
-// module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
-// 	Medicine.find({"Salt0":med_salt},null,{sort:{"Price":1}},function(err,results){
-//         if (err) return handleError(err);
-//         else console.log(results);
-//         callback(err,results);
-// 	});
-// }
-
-
 module.exports.getAllMedicines = function(callback){
 	console.log("hello");
 	// console.log(Jobexp.collection.find());
 	// console.log(Jobexp.find({}));
 	// Jobexp.find({});
 	// console.log("hello");
-	Medicine.find(function (err, results) {
-		console.log(results);
-        assert.equal(null, err);
-        
-        //invoke callback with your mongoose returned result
+	Medicine.find({}).limit(10).exec(function(err,results){
+        if (err) return handleError(err);
+        else console.log(results);
         callback(err,results);
-      });
+	});
 }
 module.exports.addMedicine = function(newMedicine){
 	console.log(newMedicine);
 	newMedicine.save();
 }
 
+
 module.exports.getMedicine= function(med_name,callback){
+	console.time("db");
 	Medicine.find({"Name":med_name}, function(err,results){
+		console.timeEnd("db");
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
 	});
 }
 
-// module.exports.getMedicineSalt= function(data,callback){
-// 	Medicine.find({"Name":data.name,"Salt0":data.salt}, function(err,results){
-//         if (err) return handleError(err);
-//         else console.log(results);
-//         callback(err,results);
-// 	});
-// }
 
 module.exports.getAllMedicineWithSalt= function(med_salt,callback){
-	Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}, function(err,results){
+	//Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}, function(err,results){
+		console.log(med_salt.salt0);
+		console.log(med_salt.salt1);
+	Medicine.find(
+					{  $and:[
+								{  
+									$or:[
+									 		{"Salt0":med_salt.salt0},
+									 		{"Salt0":med_salt.salt1},
+									 		{"Salt0":med_salt.salt2},
+									 		{"Salt0":med_salt.salt3}
+									 	]
+								},
+								{
+									$or:[
+											{"Salt1":med_salt.salt0},
+											{"Salt1":med_salt.salt1},
+											{"Salt1":med_salt.salt2},
+											{"Salt1":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt2":med_salt.salt0},
+											{"Salt2":med_salt.salt1},
+											{"Salt2":med_salt.salt2},
+											{"Salt2":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt3":med_salt.salt0},
+											{"Salt3":med_salt.salt1},
+											{"Salt3":med_salt.salt2},
+											{"Salt3":med_salt.salt3}
+										]
+								}
+							]
+					}, function(err,results){
+        if (err) return handleError(err);
+        else console.log(results);
+        callback(err,results);
+	});
+}
+
+module.exports.getOneMedicineWithSalt= function(med_salt,callback){
+	
+
+
+	//Medicine.findOne({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}, function(err,results){
+    Medicine.findOne(
+    {
+    					$and:[
+								{  
+									$or:[
+									 		{"Salt0":med_salt.salt0},
+									 		{"Salt0":med_salt.salt1},
+									 		{"Salt0":med_salt.salt2},
+									 		{"Salt0":med_salt.salt3}
+									 	]
+								},
+								{
+									$or:[
+											{"Salt1":med_salt.salt0},
+											{"Salt1":med_salt.salt1},
+											{"Salt1":med_salt.salt2},
+											{"Salt1":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt2":med_salt.salt0},
+											{"Salt2":med_salt.salt1},
+											{"Salt2":med_salt.salt2},
+											{"Salt2":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt3":med_salt.salt0},
+											{"Salt3":med_salt.salt1},
+											{"Salt3":med_salt.salt2},
+											{"Salt3":med_salt.salt3}
+										]
+								}
+							]
+    }, function(err,results){
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -115,24 +144,92 @@ module.exports.getAllMedicineWithSalt= function(med_salt,callback){
 
 module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
 
-	Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}).sort({"Price":1}).exec(function(err,results){
+	//Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}).sort({"Price":1}).exec(function(err,results){
+    Medicine.find(
+				    {
+				    	$and:[
+								{  
+									$or:[
+									 		{"Salt0":med_salt.salt0},
+									 		{"Salt0":med_salt.salt1},
+									 		{"Salt0":med_salt.salt2},
+									 		{"Salt0":med_salt.salt3}
+									 	]
+								},
+								{
+									$or:[
+											{"Salt1":med_salt.salt0},
+											{"Salt1":med_salt.salt1},
+											{"Salt1":med_salt.salt2},
+											{"Salt1":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt2":med_salt.salt0},
+											{"Salt2":med_salt.salt1},
+											{"Salt2":med_salt.salt2},
+											{"Salt2":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt3":med_salt.salt0},
+											{"Salt3":med_salt.salt1},
+											{"Salt3":med_salt.salt2},
+											{"Salt3":med_salt.salt3}
+										]
+								}
+							]
+				    }).sort({"Price":1}).exec(function(err,results){
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
 	});
-	// var cursor= Medicine.find({"Salt0":med_salt});
-	// var query= cursor.sort({"Price":1});
-	// console.log(query);
-	// query.exec(function(err,results){
-	// 	if (err) return handleError(err);
- //       // else console.log(results);
- //        callback(err,results);
-	// });
+
 }
 
-module.exports.getMedicineWithSalt= function(data,callback){
-	console.log(data.name);
-	Medicine.find({"Name":data.name, "Salt0":data.salt0,"Salt1":data.salt1,"Salt2":data.salt2,"Salt3":data.salt3},function(err,results){
+module.exports.getMedicineWithSalt= function(med_salt,callback){
+	console.log(med_salt.name);
+	Medicine.find(
+					{
+						"Name":med_salt.name, 
+						 $and:[
+								{  
+									$or:[
+									 		{"Salt0":med_salt.salt0},
+									 		{"Salt0":med_salt.salt1},
+									 		{"Salt0":med_salt.salt2},
+									 		{"Salt0":med_salt.salt3}
+									 	]
+								},
+								{
+									$or:[
+											{"Salt1":med_salt.salt0},
+											{"Salt1":med_salt.salt1},
+											{"Salt1":med_salt.salt2},
+											{"Salt1":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt2":med_salt.salt0},
+											{"Salt2":med_salt.salt1},
+											{"Salt2":med_salt.salt2},
+											{"Salt2":med_salt.salt3}
+										]
+								},
+								{
+									$or:[
+											{"Salt3":med_salt.salt0},
+											{"Salt3":med_salt.salt1},
+											{"Salt3":med_salt.salt2},
+											{"Salt3":med_salt.salt3}
+										]
+								}
+							]
+						
+					},function(err,results){
 		if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -140,10 +237,40 @@ module.exports.getMedicineWithSalt= function(data,callback){
 }
 
 module.exports.getSubstitute=function(name,callback){
-	Medicine.find({"Name":name},function(err,res){
-		console.log(res.Salt0);
+	Medicine.find({"Name":name},{"Salt0":1,"Salt1":1,"Salt2":1,"Salt3":1,"_id":0},function(err,res){
+		Medicine.find(res[0],function(err,results){
+			if (err) return handleError(err);
+	        else console.log(results);
+	        callback(err,results);
+		});
 	});
 }
+
+module.exports.getSubstituteSorted=function(name,callback){
+	Medicine.find({"Name":name},{"Salt0":1,"Salt1":1,"Salt2":1,"Salt3":1,"_id":0},function(err,res){
+		Medicine.find(res[0]).sort({"Price":1}).exec(function(err,results){
+			if (err) return handleError(err);
+	        else console.log(results);
+	        callback(err,results);
+		});
+	});
+}
+
+module.exports.getMedicinesCompanyWise=function(callback){
+	Medicine.aggregate([{$group:{"_id":"$Company",'docs': { '$push': '$$ROOT' }}}]).exec(function(err,res){	
+		// Medicine.find({"Company":res._id},function(err,results){
+		// 	console.log(results);
+			var result = res.reduce(function(obj, doc) { 
+                obj[doc._id] = doc.docs
+                return obj;
+            }, {});
+            console.log(result);
+            //result.json(result);
+            callback(err,result);
+		});
+}
+
+
 
 
 

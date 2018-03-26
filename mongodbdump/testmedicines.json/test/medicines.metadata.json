@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"test.medicines"},{"v":1,"key":{"Salt0":1.0,"Salt1":1.0},"name":"Salt0_1_Salt1_1","ns":"test.medicines"}]}

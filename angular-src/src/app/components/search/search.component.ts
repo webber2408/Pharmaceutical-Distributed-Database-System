@@ -60,12 +60,6 @@ export class SearchComponent implements OnInit {
    this.authService.searchMedicine(medicine).subscribe(data => {
      console.log(data);
      if(data.success){
-      this.flashMessage.show("Search Successful !",{
-        cssClass: 'alert-success',
-        timeout:3000
-      });
-
-
       this.result = data.results;
      }
      else{

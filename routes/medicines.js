@@ -28,102 +28,29 @@ router.get('/getAllMedicines' , (req,res) => {
 	});
 });
 
-// router.get('/searchMedicine/:name',(req,res)=>{
 
-// 	Medicine.getMedicine(req.params.name,(err,results)=>{
-// 		console.log(results);
-// 		if(err){
-// 			res.json({
-// 				success:false,
-// 				msg: 'Failed to retrieve the medicine !'
-// 			});
-// 		}
-// 		else{
-// 			res.json({
-// 				success: true,
-// 				msg: 'Medicine retrieved !',
-// 				results:results
-// 			});
-// 		}
+router.get('/getMedicinesCompanyWise' , (req,res) => {
+	// res.send("Register !");
+	//console.log("hello");
+	Medicine.getMedicinesCompanyWise( (err,results)=>{
+		console.log("hello");
+		//console.log(results);
+		if(err){
+			res.json({
+				success:false,
+				msg: 'Failed to retrieve all medicines !'
+			});
+		}
+		else{
+			res.json({
+				success: true,
+				msg: 'All Medicines retrieved !',
+				results:results
+			});
+		}
+	});
+});
 
-// 	});
-
-// });
-
-// router.get('/searchMedicineWithSalt/:name/:salt',(req,res)=>{
-
-// 	var data = {
-//             "name": req.params.name,
-//             "salt": req.params.salt
-//     };
-// 	Medicine.getMedicineSalt(data,(err,results)=>{
-// 		console.log("hello");
-// 		console.log(results);
-// 		if(err){
-// 			res.json({
-// 				success:false,
-// 				msg: 'Failed to retrieve the medicine !'
-// 			});
-// 		}
-// 		else{
-// 			res.json({
-// 				success: true,
-// 				msg: 'Medicine retrieved !',
-// 				results:results
-// 			});
-// 		}
-
-// 	});
-
-// });
-
-// router.get('/getAllMedicineWithSalt/:salt',(req,res)=>{
-
-// 	Medicine.getAllMedicineWithSalt(req.params.salt,(err,results)=>{
-// 		console.log(results);
-// 		if(err){
-// 			res.json({
-// 				success:false,
-// 				msg: 'Failed to retrieve the medicine !'
-// 			});
-// 		}
-// 		else{
-// 			res.json({
-// 				success: true,
-// 				msg: 'Medicine retrieved !',
-// 				results:results
-// 			});
-// 		}
-
-// 	});
-
-// });
-
-// router.get('/getAllMedicineWithSaltSorted/:salt',(req,res)=>{
-
-// 	Medicine.getAllMedicineWithSalt(req.params.salt,(err,results)=>{
-// 		console.log(results);
-// 		if(err){
-// 			res.json({
-// 				success:false,
-// 				msg: 'Failed to retrieve the medicine !'
-// 			});
-// 		}
-// 		else{
-// 			res.json({
-// 				success: true,
-// 				msg: 'Medicine retrieved !',
-// 				results:results
-// 			});
-// 		}
-
-// 	});
-
-// });
-
-
-
-// module.exports = router;
 
 router.post('/getMedicine',urlencodedParser, (req, res)=>{
 	var data={
@@ -135,8 +62,8 @@ router.post('/getMedicine',urlencodedParser, (req, res)=>{
 	 	sort:req.body.sort,
 	 	sub:req.body.substitute
 	}
-	console.log(data);
-	if(data.name!="" && data.salt0=="" && data.sort=="no" && data.sub=="no"){
+
+	if(data.name!="" && data.salt0=="" && (data.sort=="no" || data.sort=="yes")  && data.sub=="no"){
 		Medicine.getMedicine(data.name,(err,results)=>{
 			if(err){
 				res.json({
@@ -155,9 +82,8 @@ router.post('/getMedicine',urlencodedParser, (req, res)=>{
 		});
 	}
 
-	else if(data.name=="" && data.salt0!="" && data.sort=="no" && data.sub=="yes")
-	{
-			Medicine.getAllMedicineWithSalt(data,(err,results)=>{
+		else if(data.name!="" && data.salt0=="" && data.sort=="no" && data.sub=="yes"){
+		Medicine.getSubstitute(data.name,(err,results)=>{
 			if(err){
 				res.json({
 					success:false,
@@ -173,10 +99,31 @@ router.post('/getMedicine',urlencodedParser, (req, res)=>{
 			}
 
 		});
+
 	}
-	else if(data.name!="" && data.salt0!="" && data.sort=="no" && data.sub=="no")
+	else if(data.name!="" && data.salt0=="" && data.sort=="yes" && data.sub=="yes"){
+		Medicine.getSubstituteSorted(data.name,(err,results)=>{
+			if(err){
+				res.json({
+					success:false,
+					msg: 'Failed to retrieve the medicine !'
+				});
+			}
+			else{
+				res.json({
+					success: true,
+					msg: 'Medicine retrieved !',
+					results:results
+				});
+			}
+
+		});
+
+	}
+
+	else if(data.name=="" && data.salt0!="" && data.sort=="no" && data.sub=="yes")
 	{
-		Medicine.getMedicineWithSalt(data,(err,results)=>{
+			Medicine.getAllMedicineWithSalt(data,(err,results)=>{
 			if(err){
 				res.json({
 					success:false,
@@ -213,6 +160,47 @@ router.post('/getMedicine',urlencodedParser, (req, res)=>{
 
 		});
 	}
+
+	else if(data.name=="" && data.salt0!="" && (data.sort=="yes" || data.sort=="no") && data.sub=="no"){
+		Medicine.getOneMedicineWithSalt(data,(err,results)=>{
+		//console.log(results);
+			if(err){
+				res.json({
+					success:false,
+					msg: 'Failed to retrieve the medicine !'
+				});
+			}
+			else{
+				res.json({
+					success: true,
+					msg: 'Medicine retrieved !',
+					results:results
+				});
+			}
+
+		});
+	}
+
+	else if(data.name!="" && data.salt0!="" && (data.sort=="no" || data.sort=="yes") && data.sub=="no")
+	{
+		Medicine.getMedicineWithSalt(data,(err,results)=>{
+			if(err){
+				res.json({
+					success:false,
+					msg: 'Failed to retrieve the medicine !'
+				});
+			}
+			else{
+				res.json({
+					success: true,
+					msg: 'Medicine retrieved !',
+					results:results
+				});
+			}
+
+		});
+	}
+
 
 	else if(data.name!="" && data.salt0!="" && data.sort=="no" && data.sub=="yes"){
 		Medicine.getAllMedicineWithSalt(data,(err,results)=>{
@@ -254,24 +242,6 @@ router.post('/getMedicine',urlencodedParser, (req, res)=>{
 
 	}
 
-	// else if(data.name!="" && data.salt0=="" && data.sort=="no" && data.sub=="yes"){
-	// 	Medicine.getSubstitute(data.name,(err,results)=>{
-	// 		if(err){
-	// 			res.json({
-	// 				success:false,
-	// 				msg: 'Failed to retrieve the medicine !'
-	// 			});
-	// 		}
-	// 		else{
-	// 			res.json({
-	// 				success: true,
-	// 				msg: 'Medicine retrieved !',
-	// 				results:results
-	// 			});
-	// 		}
 
-	// 	});
-
-	// }
 });
 module.exports = router;

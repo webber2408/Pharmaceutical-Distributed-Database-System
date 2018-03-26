@@ -21,7 +21,7 @@ const MedicineSchema = mongoose.Schema(
     Price:String,
   },
   {
-  collection: 'medicines'
+  collection: 'medi'
 }
 );
 var Model = mongoose.model('Medicines', MedicineSchema);
@@ -34,7 +34,7 @@ visit_page();
 
 function visit_page(){
   var pageToVisit = "http://www.drugsupdate.com/brand/listing/";
-  for(var i=2401;i<=2498;i++){
+  for(var i=101;i<=200;i++){
     pageToVisitNow= pageToVisit+i.toString();
     console.log("Visiting page " + pageToVisitNow);
     request(pageToVisitNow, function(error, response, body) {
