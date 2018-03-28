@@ -29,10 +29,10 @@ router.get('/getAllMedicines/:page' , (req,res) => {
 });
 
 
-router.get('/getMedicinesCompanyWise' , (req,res) => {
+router.get('/getMedicinesCompanyWise/:page' , (req,res) => {
 	// res.send("Register !");
 	//console.log("hello");
-	Medicine.getMedicinesCompanyWise((err,results)=>{
+	Medicine.getMedicinesCompanyWise(req.params.page , (err,results)=>{
 		console.log("hello");
 		//console.log(results);
 		if(err){

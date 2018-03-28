@@ -1,9 +1,16 @@
 <div class="container">
     <h2>Company-wise Catalog</h2>
+    <div style="display:flex">
     <form class="form-horizontal" (submit)="loadMedicines()">
-      <input type="submit" class="btn btn-primary" value="Load Companywise Medicines">  
-    </form>        
+      <input type="submit" class="btn btn-primary" value="Load Company Medicine">  
+    </form>&nbsp;&nbsp;
+    <form class="form-horizontal" (submit)="loadPreviousMedicines()">
+        <input type="submit" class="btn btn-success" value="Load Previous Company Medicine">  
+      </form>       
+      </div>   
+    <h4>Company Name:&nbsp;&nbsp;{{result._id}}</h4>
     <table class="table">
+       
       <thead>
         <tr>
           <th>Medicine Name</th>
@@ -20,7 +27,7 @@
       </thead>
       <tbody>
         
-        <!-- <tr *ngFor="let element of result">
+        <tr *ngFor = "let element of result.docs"> 
           <td>{{element.Name}}</td>
           <td>{{element.Salt0}}</td>
           <td>{{element.Salt1}}</td>
@@ -31,10 +38,8 @@
           <td>{{element.Volume}}</td>
           <td>{{element.Presentation}}</td>
           <td>{{element.Price}}</td>
-        </tr> -->
-        <!-- <tr *ngFor="let element of result">
-          <td>{{element}}</td>
-        </tr> -->
+         </tr>
+       
       </tbody>
     </table>
   </div>

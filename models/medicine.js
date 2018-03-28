@@ -260,18 +260,26 @@ module.exports.getSubstituteSorted=function(name,callback){
 	});
 }
 
-module.exports.getMedicinesCompanyWise=function(callback){
+module.exports.getMedicinesCompanyWise=function(page,callback){
 	Medicine.aggregate([
 					{$group:{"_id":"$Company",'docs': { '$push': '$$ROOT' }}}]).exec(function(err,res){	
 		// Medicine.find({"Company":res._id},function(err,results){
 		// 	console.log(results);
+			// var result = res.reduce(function(obj, doc) { 
+            //     obj[doc._id] = doc.docs
+            //     return obj;
+			// }, {});
+			//console.log(res);
+			var i=0;
 			var result = res.reduce(function(obj, doc) { 
-                obj[doc._id] = doc.docs
+				obj[i] = doc;
+				i++;
                 return obj;
-            }, {});
-            console.log(result);
+			}, {});
+			//console.log(result[2]);
+            //console.log(result);
             //result.json(result);
-            callback(err,result);
+            callback(err,result[page]);
 		});
 }
 

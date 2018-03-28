@@ -47,5 +47,11 @@ export class AllmedicinesComponent implements OnInit {
       this.result = profile.results;
     });
   }
-
+  
+  loadPreviousMedicines(){
+    this.Page = this.Page-1;
+    this.authService.getAllMedicines(this.Page).subscribe(profile => {
+      this.result = profile.results;
+    });
+  }
 }
