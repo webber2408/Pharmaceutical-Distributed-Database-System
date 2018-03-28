@@ -6,10 +6,10 @@ const Medicine = require('../models/medicine');
 const config = require('../config/database');
 var bodyParser= require('body-parser');
 var urlencodedParser= bodyParser.urlencoded({extended: false});
-router.get('/getAllMedicines' , (req,res) => {
+router.get('/getAllMedicines/:page' , (req,res) => {
 	// res.send("Register !");
 	console.log("hello");
-	Medicine.getAllMedicines( (err,results)=>{
+	Medicine.getAllMedicines( req.params.page , (err,results)=>{
 		console.log("hello");
 		console.log(results);
 		if(err){
@@ -32,7 +32,7 @@ router.get('/getAllMedicines' , (req,res) => {
 router.get('/getMedicinesCompanyWise' , (req,res) => {
 	// res.send("Register !");
 	//console.log("hello");
-	Medicine.getMedicinesCompanyWise( (err,results)=>{
+	Medicine.getMedicinesCompanyWise((err,results)=>{
 		console.log("hello");
 		//console.log(results);
 		if(err){

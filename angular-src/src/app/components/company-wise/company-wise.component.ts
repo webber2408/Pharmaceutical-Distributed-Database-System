@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
+import { PipeTransform, Pipe } from '@angular/core';
 
+@Pipe({name: 'keys'})
 @Component({
-  selector: 'app-allmedicines',
-  templateUrl: './allmedicines.component.html',
-  styleUrls: ['./allmedicines.component.css']
+  selector: 'app-company-wise',
+  templateUrl: './company-wise.component.html',
+  styleUrls: ['./company-wise.component.css']
 })
-export class AllmedicinesComponent implements OnInit {
+export class CompanyWiseComponent implements OnInit {
   Name: String;
   Salt0: String;
   Salt1: String;
@@ -18,7 +20,7 @@ export class AllmedicinesComponent implements OnInit {
   Volume:String;
   Presentation:String;
   Price:number;
-  result=[];
+  result={};
   Page:number;
   constructor(private authService: AuthService,
               private router:Router) { }
@@ -43,9 +45,21 @@ export class AllmedicinesComponent implements OnInit {
 
   loadMedicines(){
     this.Page = this.Page+1;
-    this.authService.getAllMedicines(this.Page).subscribe(profile => {
-      this.result = profile.results;
+    this.authService.getAllMedicinesCompanywise(this.Page).subscribe(profile => {
+      
+      this.result = JSON.stringify(profile.results);
+      console.log(this.result);
+      //console.log(JSON.stringify(this.result));
     });
   }
 
+}
+export class KeysPipe implements PipeTransform {
+  transform(value, args:string[]) : any {
+    let keys = [];
+    for (let key in value) {
+      keys.push({key: key, value: value[key]});
+    }
+    return keys;
+  }
 }

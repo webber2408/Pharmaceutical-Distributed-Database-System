@@ -57,11 +57,18 @@ export class AuthService {
     return this.http.get('http://localhost:3000/consultation/getConsultation',{headers: headers}).map(res => res.json());
   }
   
-  getAllMedicines(){
+  getAllMedicines(page){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/medicines/getAllMedicines',{headers: headers}).map(res => res.json());
+    return this.http.get('http://localhost:3000/medicines/getAllMedicines/'+page,{headers: headers}).map(res => res.json());
   }
+
+  getAllMedicinesCompanywise(page){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/medicines/getMedicinesCompanywise/'+page,{headers: headers}).map(res => res.json());
+  }
+
 
   authenticateUser(user){
     let headers = new Headers(); 

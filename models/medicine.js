@@ -19,13 +19,15 @@ const MedicineSchema = mongoose.Schema({
 });
 const Medicine = module.exports = mongoose.model('Medicines',MedicineSchema);
 
-module.exports.getAllMedicines = function(callback){
+module.exports.getAllMedicines = function(page,callback){
 	console.log("hello");
 	// console.log(Jobexp.collection.find());
 	// console.log(Jobexp.find({}));
 	// Jobexp.find({});
 	// console.log("hello");
-	Medicine.find({}).limit(10).exec(function(err,results){
+	console.log(page);
+	page = parseInt((page-1)*10);
+	Medicine.find({}).limit(10).skip(page).exec(function(err,results){
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -52,6 +54,7 @@ module.exports.getAllMedicineWithSalt= function(med_salt,callback){
 	//Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}, function(err,results){
 		console.log(med_salt.salt0);
 		console.log(med_salt.salt1);
+		console.time("dbs");
 	Medicine.find(
 					{  $and:[
 								{  
@@ -88,6 +91,7 @@ module.exports.getAllMedicineWithSalt= function(med_salt,callback){
 								}
 							]
 					}, function(err,results){
+		console.timeEnd("dbs");
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -257,7 +261,8 @@ module.exports.getSubstituteSorted=function(name,callback){
 }
 
 module.exports.getMedicinesCompanyWise=function(callback){
-	Medicine.aggregate([{$group:{"_id":"$Company",'docs': { '$push': '$$ROOT' }}}]).exec(function(err,res){	
+	Medicine.aggregate([
+					{$group:{"_id":"$Company",'docs': { '$push': '$$ROOT' }}}]).exec(function(err,res){	
 		// Medicine.find({"Company":res._id},function(err,results){
 		// 	console.log(results);
 			var result = res.reduce(function(obj, doc) { 

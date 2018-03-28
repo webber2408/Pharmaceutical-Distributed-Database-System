@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -21,6 +20,7 @@ import { RealtimeareaComponent } from './components/realtimearea/realtimearea.co
 import { RealtimeComponent } from './components/realtime/realtime.component';
 import { SearchComponent } from './components/search/search.component';
 import { AllmedicinesComponent } from './components/allmedicines/allmedicines.component';
+import { CompanyWiseComponent } from './components/company-wise/company-wise.component';
 
 const appRoutes: Routes = [
   {path:'',component:HomeComponent},
@@ -31,7 +31,8 @@ const appRoutes: Routes = [
   {path:'consultants',component:ConsultantsComponent , canActivate:[AuthGuard]},
   {path:'realtimearea',component:RealtimeareaComponent , canActivate:[AuthGuard]},
   {path:'search',component:SearchComponent , canActivate:[AuthGuard]},
-  {path:'allmedicines',component:AllmedicinesComponent,canActivate:[AuthGuard]}
+  {path:'allmedicines',component:AllmedicinesComponent,canActivate:[AuthGuard]},
+  {path:'company-wise',component:CompanyWiseComponent,canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -47,7 +48,9 @@ const appRoutes: Routes = [
     RealtimeareaComponent,
     RealtimeComponent,
     SearchComponent,
-    AllmedicinesComponent
+    AllmedicinesComponent,
+    CompanyWiseComponent,
+
   ],
   imports: [
     BrowserModule,FormsModule,HttpModule,RouterModule.forRoot(appRoutes),FlashMessagesModule
