@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const assert = require('assert')
 const config = require('../config/database');
+const performance= require('performance-now');
 
 // User schema 
 const MedicineSchema = mongoose.Schema({
@@ -27,7 +28,10 @@ module.exports.getAllMedicines = function(page,callback){
 	// console.log("hello");
 	console.log(page);
 	page = parseInt((page-1)*10);
+	var a=performance();
 	Medicine.find({}).limit(10).skip(page).exec(function(err,results){
+		var b=performance();
+		console.log("getAllMedicines-"+(b-a));
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -40,9 +44,12 @@ module.exports.addMedicine = function(newMedicine){
 
 
 module.exports.getMedicine= function(med_name,callback){
-	console.time("db");
+	//console.time("db");
+	var a=performance();
 	Medicine.find({"Name":med_name}, function(err,results){
-		console.timeEnd("db");
+		//console.timeEnd("db");
+		var b=performance();
+		console.log("getMedicine-"+(b-a));
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -54,7 +61,8 @@ module.exports.getAllMedicineWithSalt= function(med_salt,callback){
 	//Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}, function(err,results){
 		console.log(med_salt.salt0);
 		console.log(med_salt.salt1);
-		console.time("dbs");
+		//console.time("dbs");
+		var a=performance();
 	Medicine.find(
 					{  $and:[
 								{  
@@ -91,7 +99,9 @@ module.exports.getAllMedicineWithSalt= function(med_salt,callback){
 								}
 							]
 					}, function(err,results){
-		console.timeEnd("dbs");
+		var b=performance();
+		console.log("getAllMedicineWithSalt-"+(b-a));
+		//console.timeEnd("dbs");
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -103,7 +113,8 @@ module.exports.getOneMedicineWithSalt= function(med_salt,callback){
 
 
 	//Medicine.findOne({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}, function(err,results){
-    Medicine.findOne(
+    var a=performance();
+    Medicine.find(
     {
     					$and:[
 								{  
@@ -139,7 +150,9 @@ module.exports.getOneMedicineWithSalt= function(med_salt,callback){
 										]
 								}
 							]
-    }, function(err,results){
+    }).limit(1).exec(function(err,results){
+    	var b=performance();
+		console.log("getOneMedicineWithSalt-"+(b-a));
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -149,6 +162,7 @@ module.exports.getOneMedicineWithSalt= function(med_salt,callback){
 module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
 
 	//Medicine.find({"Salt0":med_salt.salt0,"Salt1":med_salt.salt1,"Salt2":med_salt.salt2,"Salt3":med_salt.salt3}).sort({"Price":1}).exec(function(err,results){
+    var a=performance();
     Medicine.find(
 				    {
 				    	$and:[
@@ -186,6 +200,8 @@ module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
 								}
 							]
 				    }).sort({"Price":1}).exec(function(err,results){
+		var b=performance();
+		console.log("getAllMedicineWithSaltSorted-"+(b-a));
         if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -195,6 +211,7 @@ module.exports.getAllMedicineWithSaltSorted= function(med_salt,callback){
 
 module.exports.getMedicineWithSalt= function(med_salt,callback){
 	console.log(med_salt.name);
+	var a=performance();
 	Medicine.find(
 					{
 						"Name":med_salt.name, 
@@ -234,6 +251,8 @@ module.exports.getMedicineWithSalt= function(med_salt,callback){
 							]
 						
 					},function(err,results){
+		var b=performance();
+		console.log("getMedicineWithSalt-"+(b-a));
 		if (err) return handleError(err);
         else console.log(results);
         callback(err,results);
@@ -241,8 +260,11 @@ module.exports.getMedicineWithSalt= function(med_salt,callback){
 }
 
 module.exports.getSubstitute=function(name,callback){
+	var a=performance();
 	Medicine.find({"Name":name},{"Salt0":1,"Salt1":1,"Salt2":1,"Salt3":1,"_id":0},function(err,res){
 		Medicine.find(res[0],function(err,results){
+			var b=performance();
+			console.log("getSubstitute-"+(b-a));
 			if (err) return handleError(err);
 	        else console.log(results);
 	        callback(err,results);
@@ -251,8 +273,11 @@ module.exports.getSubstitute=function(name,callback){
 }
 
 module.exports.getSubstituteSorted=function(name,callback){
+	var a=performance();
 	Medicine.find({"Name":name},{"Salt0":1,"Salt1":1,"Salt2":1,"Salt3":1,"_id":0},function(err,res){
 		Medicine.find(res[0]).sort({"Price":1}).exec(function(err,results){
+			var b=performance();
+			console.log("getSubstituteSorted-"+(b-a));
 			if (err) return handleError(err);
 	        else console.log(results);
 	        callback(err,results);
@@ -261,6 +286,7 @@ module.exports.getSubstituteSorted=function(name,callback){
 }
 
 module.exports.getMedicinesCompanyWise=function(page,callback){
+	var a=performance();
 	Medicine.aggregate([
 					{$group:{"_id":"$Company",'docs': { '$push': '$$ROOT' }}}]).exec(function(err,res){	
 		// Medicine.find({"Company":res._id},function(err,results){
@@ -279,6 +305,8 @@ module.exports.getMedicinesCompanyWise=function(page,callback){
 			//console.log(result[2]);
             //console.log(result);
             //result.json(result);
+            var b=performance();
+			console.log("getMedicinesCompanyWise-"+(b-a));
             callback(err,result[page]);
 		});
 }

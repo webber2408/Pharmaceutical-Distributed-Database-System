@@ -1,0 +1,63 @@
+<div class="container" style="background-color:#353e42;overflow:hidden !important;">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+            <form class=" form-inline" (submit)="onDiseaseSubmit()">
+                <div class="col-lg-12">
+
+
+                    <div class="form-group form-inline col-lg-12" style="display:flex;justify-content:space-around;margin-top:10px;">
+                        <label for="name" class="cols-sm-2 control-label" style="color:white;padding-left:5px;">Disease Name</label>
+                        <div class="col-lg-12">
+                          <div class="input-group">
+                              
+                            <input type="text" class="col-lg-12 form-control" [(ngModel)]="DiseaseName" name="name" id="name"  placeholder="Disease Name">
+                            
+                          </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-12" style="padding:5px">   
+                    <div class="form-group form-inline col-lg-12" style="display:flex;justify-content:space-around;margin-top:10px;">
+                        <input type="submit" class="btn btn-primary btn-sm" value="Show effective salts">
+                        <button class="btn btn-success btn-sm" (click)="loadMedicines()" value="Show Medicines">Show Medicines</button> 
+                    </div> 
+                </div>
+
+            </form>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6 padding-10">
+            <div class="main-salt-display col-lg-12 col-md-12">
+                <div *ngFor="let result of saltResult">
+                    <div *ngFor="let element of result.Salts">
+                        {{element}}
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="background-color:#353e42;margin-top:10px">
+  <h5><b style="color:white">Effective medicines for above disease:</b></h5>
+  <div class="row padding-10">
+    <div class="col-lg-12 col-md-12 main-medicine-display" style="height:390px;overflow-y:scroll;">
+        <div *ngFor="let element of medicineResult">
+            <div class="newExp">
+                <b><h4 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Name}}</h4></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Salt0}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Salt1}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Salt2}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Salt3}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Combinations}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Volume}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Presentation}}</h6></b>
+                <b><h6 style="font-family: 'Bree Serif', serif;margin-right:20px;">{{element.Price}}</h6></b>
+            </div> 
+        </div>    
+                
+
+    </div>
+  </div>
+</div>

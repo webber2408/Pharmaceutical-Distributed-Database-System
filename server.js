@@ -1,11 +1,13 @@
 const mongo = require('mongodb').MongoClient;
 const client = require('socket.io').listen(4000).sockets;
-
+const mongoose = require('mongoose');
+mongoose.connect("mongodb://localhost:27017/test");
+var db = mongoose.connection;
 // Connect to mongo
-mongo.connect('mongodb://localhost:27017/meanauth', function(err, db){
-    if(err){
-        throw err;
-    }
+// mongo.connect('mongodb://localhost:27017/test', function(err, db){
+//     if(err){
+//         throw err;
+//     }
 
     console.log('MongoDB connected...');
 
@@ -79,4 +81,4 @@ mongo.connect('mongodb://localhost:27017/meanauth', function(err, db){
             });
         });
     });
-});
+// });

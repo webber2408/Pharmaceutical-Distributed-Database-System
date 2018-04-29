@@ -29,6 +29,7 @@ const users = require('./routes/users');
 const jobex = require('./routes/jobex');
 const consultation = require('./routes/consultation');
 const medicines = require('./routes/medicines');
+const diseases = require('./routes/diseases');
 const port = 3000;
 
 app.use(cors());
@@ -44,6 +45,7 @@ app.use('/users',users);
 app.use('/jobex',jobex);
 app.use('/consultation',consultation);
 app.use('/medicines',medicines);
+app.use('/diseases',diseases);
 
 //Passport middleware
 app.use(passport.initialize());

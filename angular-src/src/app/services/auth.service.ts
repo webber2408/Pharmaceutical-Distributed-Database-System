@@ -32,6 +32,12 @@ export class AuthService {
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/medicines/getMedicine',medicine , {headers: headers}).map(res => res.json());
   }
+  
+  searchSaltForDisease(disease){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/diseases/getSaltForDisease',disease , {headers: headers}).map(res => res.json());
+  }
 
   addExperience(exp){
     let headers = new Headers();
@@ -61,6 +67,12 @@ export class AuthService {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
     return this.http.get('http://localhost:3000/medicines/getAllMedicines/'+page,{headers: headers}).map(res => res.json());
+  }
+  
+  getAllMedicinesForDisease(disease){
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.post('http://localhost:3000/diseases/getMedicineForDisease',disease,{headers: headers}).map(res => res.json());
   }
 
   getAllMedicinesCompanywise(page){

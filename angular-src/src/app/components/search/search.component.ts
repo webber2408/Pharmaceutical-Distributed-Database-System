@@ -58,9 +58,13 @@ export class SearchComponent implements OnInit {
    
   //Search Medicine
    this.authService.searchMedicine(medicine).subscribe(data => {
-     console.log(data);
+     //console.log(data);
      if(data.success){
+    //console.log("here here");
+     //console.log(data.results);
       this.result = data.results;
+      //console.log("here here 1");
+      //console.log(this.result);
      }
      else{
       this.flashMessage.show("Something went wrong , please register again !",{

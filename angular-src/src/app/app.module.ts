@@ -21,6 +21,7 @@ import { RealtimeComponent } from './components/realtime/realtime.component';
 import { SearchComponent } from './components/search/search.component';
 import { AllmedicinesComponent } from './components/allmedicines/allmedicines.component';
 import { CompanyWiseComponent } from './components/company-wise/company-wise.component';
+import { DiseasesComponent } from './components/diseases/diseases.component';
 
 const appRoutes: Routes = [
   {path:'',component:HomeComponent},
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
   {path:'realtimearea',component:RealtimeareaComponent , canActivate:[AuthGuard]},
   {path:'search',component:SearchComponent , canActivate:[AuthGuard]},
   {path:'allmedicines',component:AllmedicinesComponent,canActivate:[AuthGuard]},
-  {path:'company-wise',component:CompanyWiseComponent,canActivate:[AuthGuard]}
+  {path:'company-wise',component:CompanyWiseComponent,canActivate:[AuthGuard]},
+  {path:'diseases',component:DiseasesComponent,canActivate:[AuthGuard]}
 ]
 
 @NgModule({
@@ -50,6 +52,7 @@ const appRoutes: Routes = [
     SearchComponent,
     AllmedicinesComponent,
     CompanyWiseComponent,
+    DiseasesComponent,
 
   ],
   imports: [

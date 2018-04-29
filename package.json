@@ -17,6 +17,7 @@
     "mongose": "*",
     "passport": "*",
     "passport-jwt": "*",
+    "perf_hooks": "0.0.1",
     "random-number": "0.0.9",
     "request": "^2.65.0",
     "rollbar": "^2.2.8",
